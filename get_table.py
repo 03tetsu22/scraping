@@ -4,6 +4,8 @@
 import urllib3
 from bs4 import BeautifulSoup
 import certifi
+import time
+import csv
 
 ##################
 # define function
@@ -76,14 +78,34 @@ def extract_data(url):
 
     return result
 
+def read_text(text_path):
+    with open(text_path) as f:
+        lines = f.readlines()
+        data=[line.rstrip("\n")for line in lines]
+    # print(data)
+    return data
+
 def main():
     #<= パラメータの設定 =>#
-    url  = "https://symphogearxd.gamewith.jp/article/show/60789"
-    result = extract_data(url)
-    print("結果：{}".format(result))
+    text_path="./url_list.txt"
+    url_list=read_text(text_path)
+    save_file_path="symphogear.csv"
+    save_file = open(save_file_path,"w")
+    writer = csv.writer(save_file,lineterminator='\n')
+    print("url_length:{}".format(len(url_list)))
+    columns=["初期レアリティ","属性","名前","必殺技","HP","ATK","DEF","SPD","CTR","CTD"]
+    writer.writerow(columns)
+    for index in range(len(url_list)):
+        url = url_list[index]
+        result = extract_data(url)
+        print("結果：{}".format(result))
+        writer.writerow(result)
+        time.sleep(3)
+    save_file.close()
+    # url  = "https://symphogearxd.gamewith.jp/article/show/60789"
+    # result = extract_data(url)
+    # print("結果：{}".format(result))
 
 
 if __name__ =="__main__":
     main()
-
-
