@@ -8,13 +8,20 @@ import certifi
 ##################
 # define function
 ##################
-def extract_data(soup):
-    #<= 名前と必殺技名の収取流 =>#
+def extract_data(url):
+    #<= webページへのリクエスト=>#
+    http = urllib3.PoolManager(cert_reqs="CERT_REQUIRED",
+                            ca_certs=certifi.where())
+    request_result = http.request("GET",url)
+    soup   = BeautifulSoup(request_result.data,"html.parser")
+
+    #<= 名前と必殺技名の収集 =>#
     temp = soup.title.string.replace("の評価","")
     temp = temp.replace("- GameWith","")
     temp = temp.replace("【シンフォギアXD】","")
 
     name_skill=temp.split("|")
+    name_skill=[i.strip(" ") for i in name_skill]
     # print(name_skill)
 
     #tableの抽出#
@@ -50,11 +57,7 @@ def extract_data(soup):
 def main():
     #<= パラメータの設定 =>#
     url  = "https://symphogearxd.gamewith.jp/article/show/60789"
-    http = urllib3.PoolManager(cert_reqs="CERT_REQUIRED",
-                            ca_certs=certifi.where())
-    request_result = http.request("GET",url)
-    soup   = BeautifulSoup(request_result.data,"html.parser")
-    result = extract_data(soup)
+    result = extract_data(url)
     print("結果：{}".format(result))
 
 
