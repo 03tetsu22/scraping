@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import certifi
 import time
 import csv
+import sys
 
 ##################
 # define function
@@ -89,7 +90,7 @@ def main():
     #<= パラメータの設定 =>#
     text_path="./url_list.txt"
     url_list=read_text(text_path)
-    save_file_path="symphogear.csv"
+    save_file_path="./symphogear.csv"
     save_file = open(save_file_path,"w")
     writer = csv.writer(save_file,lineterminator='\n')
     print("url_length:{}".format(len(url_list)))
@@ -98,7 +99,9 @@ def main():
     for index in range(len(url_list)):
         url = url_list[index]
         result = extract_data(url)
-        print("結果：{}".format(result))
+        if result is None:
+            continue
+        sys.stdout.write("\r結果：{}".format(result))
         writer.writerow(result)
         time.sleep(3)
     save_file.close()
