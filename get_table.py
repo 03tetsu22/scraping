@@ -27,6 +27,29 @@ def extract_data(url):
     #tableの抽出#
     divs  = soup.find_all("div")
     table = ""
+    result = []
+    for tag in divs:
+        try:
+            string_ = tag.get("class").pop(0)
+            if string_ in "symphogearxd_gear_table1":
+                table=tag.find_all("tr")
+                break
+        except:
+            pass
+    #<= 行の抽出=>#
+    for tr in table:
+        th_list = tr.find_all("th")
+        th_string_list=[i.string for i in th_list]
+        # print(th_string_list)
+        #<=星6のデータがあるときのみデータを抽出=>#
+        if "初期レアリティ" in th_string_list:
+            a_tag=tr.find("a")
+            rarity = [a_tag.string]
+        elif "属性" in th_string_list:
+            a_tag=tr.find("a")
+            attribution = [a_tag.string]
+        else:
+            result=None
     for tag in divs:
         try:
             string_ = tag.get("class").pop(0)
@@ -45,14 +68,13 @@ def extract_data(url):
             tds=tr.find_all("td")
             tds=[i.string for i in tds]
             # print(tds)
-            result=name_skill+tds
+            result = rarity + attribution + name_skill + tds
         else:
             result=None
 
     # print(result)
 
     return result
-
 
 def main():
     #<= パラメータの設定 =>#
@@ -63,3 +85,5 @@ def main():
 
 if __name__ =="__main__":
     main()
+
+
