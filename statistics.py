@@ -9,6 +9,13 @@ files = {
 #csv読み込み
 df = pd.read_csv(files['symphogear'])
 
+# 力属性
+chikara = df[(df['属性'].str.contains('力')) & (df['初期レアリティ'] == '星5')]
+chikara_mean = chikara.mean()
+print('力属性のステータス')
+print(chikara_mean)
+print(chikara.shape)
+
 # 響
 hibiki = df[(df['名前'].str.contains('立花響')) & (df['初期レアリティ'] == '星5')]
 hibiki_mean = hibiki.mean()
