@@ -16,6 +16,48 @@ print('力属性のステータス')
 print(chikara_mean)
 print(chikara.shape)
 
+# 知属性
+chi = df[(df['属性'].str.contains('知')) & (df['初期レアリティ'] == '星5')]
+chi_mean = chi.mean()
+print('知属性のステータス')
+print(chi_mean)
+print(chi.shape)
+
+# 体属性
+karada = df[(df['属性'].str.contains('体')) & (df['初期レアリティ'] == '星5')]
+karada_mean = karada.mean()
+print('体属性のステータス')
+print(karada_mean)
+print(karada.shape)
+
+# 技属性
+waza = df[(df['属性'].str.contains('技')) & (df['初期レアリティ'] == '星5')]
+waza_mean = waza.mean()
+print('技属性のステータス')
+print(waza_mean)
+print(waza.shape)
+
+# 心属性
+kokoro = df[(df['属性'].str.contains('心')) & (df['初期レアリティ'] == '星5')]
+kokoro_mean = kokoro.mean()
+print('心属性のステータス')
+print(kokoro_mean)
+print(kokoro.shape)
+
+# 巧属性
+takumi = df[(df['属性'].str.contains('巧')) & (df['初期レアリティ'] == '星5')]
+takumi_mean = takumi.mean()
+print('巧属性のステータス')
+print(takumi_mean)
+print(takumi.shape)
+
+# 怒属性
+ikari = df[(df['属性'].str.contains('怒')) & (df['初期レアリティ'] == '星5')]
+ikari_mean = ikari.mean()
+print('怒属性のステータス')
+print(ikari_mean)
+print(ikari.shape)
+
 # 響
 hibiki = df[(df['名前'].str.contains('立花響')) & (df['初期レアリティ'] == '星5')]
 hibiki_mean = hibiki.mean()

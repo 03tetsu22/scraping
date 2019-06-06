@@ -45,7 +45,7 @@ def extract_data(url):
         th_string_list = [i.string for i in th_list]
         # print(th_string_list)
         #<=星6のデータがあるときのみデータを抽出=>#
-        if "初期レアリティ" in th_string_list:
+        if "レアリティ(初期)" in th_string_list or "初期レアリティ" in th_string_list:
             a_tag = tr.find("a")
             rarity = [a_tag.string]
         elif "属性" in th_string_list:
